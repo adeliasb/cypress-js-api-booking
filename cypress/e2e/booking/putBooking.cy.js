@@ -69,12 +69,6 @@ describe("PUT /booking/:id", () => {
             expect(updateRes.status).to.eq(200); // Valida status da atualização
             expect(updateRes.body.firstname).to.eq("AdeliaAtualizada"); // Valida dado atualizado
             cy.log("Reserva atualizada:", JSON.stringify(updateRes.body));
-
-            // 5️⃣ Salva a resposta da atualização em arquivo JSON via cy.task
-            cy.task("writeFile", {
-              filename: `cypress/reports/updateBooking-${Date.now()}.json`,
-              data: JSON.stringify(updateRes.body, null, 2),
-            });
           });
         });
       });
