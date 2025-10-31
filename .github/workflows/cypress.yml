@@ -14,23 +14,45 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-      # 2️⃣ Instala dependências do projeto
+      # 2️⃣ Cache do Node Modules para acelerar builds
+      - name: Cache Node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # 3️⃣ Instala dependências do projeto
       - name: Instalar dependências
         run: npm install
 
-      # 3️⃣ Executa os testes Cypress em modo headless
+      # 4️⃣ Cache do Cypress Binary
+      - name: Cache Cypress Binary
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cypress-
+
+      # 5️⃣ Instala o binário do Cypress (necessário para CI)
+      - name: Instalar Cypress Binary
+        run: npx cypress install
+
+      # 6️⃣ Executa os testes Cypress em modo headless
       - name: Run Cypress Tests
         run: npx cypress run
 
-      # 4️⃣ Combina todos os relatórios JSON em um único
+      # 7️⃣ Combina todos os relatórios JSON em um único
       - name: Generate Mochawesome Report
         run: npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
 
-      # 5️⃣ Gera o relatório HTML a partir do JSON combinado
+      # 8️⃣ Gera o relatório HTML a partir do JSON combinado
       - name: Create HTML report
         run: npx mochawesome-report-generator cypress/reports/report.json -o cypress/reports
 
-      # 6️⃣ Publica o relatório HTML como artefato do workflow
+      # 9️⃣ Publica o relatório HTML como artefato do workflow
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
