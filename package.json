@@ -1,0 +1,21 @@
+{
+  "name": "cypress-js-api-booking",
+  "version": "1.0.0",
+  "description": "Testes automatizados de API REST (Booking) com Cypress + JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run --browser chrome --headless"
+  },
+  "keywords": [
+    "cypress",
+    "api",
+    "automation",
+    "booking",
+    "javascript"
+  ],
+  "author": "Adélia dos Santos Barroso",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^13.6.0"
+  }
+}

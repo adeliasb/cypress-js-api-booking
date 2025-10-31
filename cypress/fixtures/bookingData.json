@@ -1,0 +1,11 @@
+{
+  "firstname": "Adelia",
+  "lastname": "Barroso",
+  "totalprice": 150,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2025-10-30",
+    "checkout": "2025-11-05"
+  },
+  "additionalneeds": "Breakfast"
+}
