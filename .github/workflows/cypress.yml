@@ -10,11 +10,29 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
+      # 1️⃣ Pega o código do repositório
       - name: Checkout do código
         uses: actions/checkout@v4
 
+      # 2️⃣ Instala dependências do projeto
       - name: Instalar dependências
         run: npm install
 
-      - name: Executar testes Cypress (modo headless)
-        run: npm run test
+      # 3️⃣ Executa os testes Cypress em modo headless
+      - name: Run Cypress Tests
+        run: npx cypress run
+
+      # 4️⃣ Combina todos os relatórios JSON em um único
+      - name: Generate Mochawesome Report
+        run: npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
+
+      # 5️⃣ Gera o relatório HTML a partir do JSON combinado
+      - name: Create HTML report
+        run: npx mochawesome-report-generator cypress/reports/report.json -o cypress/reports
+
+      # 6️⃣ Publica o relatório HTML como artefato do workflow
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-report
+          path: cypress/reports/

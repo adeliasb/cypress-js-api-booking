@@ -32,7 +32,15 @@ describe("PUT /booking/:id", () => {
           bookingService.update(bookingId, payload, token).then((updateRes) => {
             expect(updateRes.status).to.eq(200);
             expect(updateRes.body.firstname).to.eq("AdeliaAtualizada");
+            console.log("Response:", updateRes);
+            cy.log("Status:", updateRes);
           });
+
+          // Salva em arquivo JSON
+          fs.writeFileSync(
+            `cypress/reports/createBooking-${Date.now()}.json`,
+            JSON.stringify(res.body, null, 2)
+          );
         });
       });
     });
