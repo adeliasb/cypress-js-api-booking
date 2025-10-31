@@ -38,8 +38,8 @@ describe("PUT /booking/:id", () => {
 
           // Salva em arquivo JSON
           fs.writeFileSync(
-            `cypress/reports/createBooking-${Date.now()}.json`,
-            JSON.stringify(res.body, null, 2)
+            `cypress/reports/updateteBooking-${Date.now()}.json`,
+            JSON.stringify(updateRes.body, null, 2)
           );
         });
       });
