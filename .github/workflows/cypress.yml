@@ -40,9 +40,9 @@ jobs:
       - name: Instalar Cypress Binary
         run: npx cypress install
 
-      # 6️⃣ Executa os testes Cypress em modo headless
+      # 6️⃣ Executa os testes Cypress em modo headless com Mochawesome
       - name: Run Cypress Tests
-        run: npx cypress run
+        run: npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=false,json=true
 
       # 7️⃣ Combina todos os relatórios JSON em um único
       - name: Generate Mochawesome Report
