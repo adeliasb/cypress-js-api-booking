@@ -32,7 +32,7 @@ jobs:
 
       # 6️⃣ Publica o relatório HTML como artefato do workflow
       - name: Upload HTML report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-report
           path: cypress/reports/
