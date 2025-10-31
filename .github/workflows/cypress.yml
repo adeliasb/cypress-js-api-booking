@@ -40,19 +40,23 @@ jobs:
       - name: Instalar Cypress Binary
         run: npx cypress install
 
-      # 6️⃣ Executa os testes Cypress em modo headless com Mochawesome
+      # 6️⃣ Cria pasta de reports (caso não exista)
+      - name: Criar pasta de reports
+        run: mkdir -p cypress/reports
+
+      # 7️⃣ Executa os testes Cypress em modo headless com Mochawesome
       - name: Run Cypress Tests
         run: npx cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,overwrite=false,html=false,json=true
 
-      # 7️⃣ Combina todos os relatórios JSON em um único
+      # 8️⃣ Combina todos os relatórios JSON em um único
       - name: Generate Mochawesome Report
         run: npx mochawesome-merge cypress/reports/*.json > cypress/reports/report.json
 
-      # 8️⃣ Gera o relatório HTML a partir do JSON combinado
+      # 9️⃣ Gera o relatório HTML a partir do JSON combinado
       - name: Create HTML report
         run: npx mochawesome-report-generator cypress/reports/report.json -o cypress/reports
 
-      # 9️⃣ Publica o relatório HTML como artefato do workflow
+      # 🔟 Publica o relatório HTML como artefato do workflow
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
         with:
